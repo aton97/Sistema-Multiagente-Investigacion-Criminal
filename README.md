@@ -1,17 +1,26 @@
-🕵️ Sistema Multiagente de Investigación Criminal con JADE
-📌 Descripción
+# 🕵️ Sistema Multiagente de Investigación Criminal con JADE
 
-Este proyecto implementa un Sistema Multiagente utilizando la plataforma JADE (Java Agent DEvelopment Framework) para simular el flujo de una investigación criminal. La solución demuestra cómo agentes inteligentes pueden colaborar de manera distribuida mediante el uso de Páginas Amarillas (Directory Facilitator - DF) y mensajes ACL (Agent Communication Language) para resolver un caso de investigación.
+## 📌 Descripción
 
-El proyecto fue desarrollado como parte del curso Innovación Disruptiva de la Maestría en Ingeniería de Sistemas e Informática.
+Este proyecto implementa un **Sistema Multiagente** utilizando la plataforma **JADE (Java Agent DEvelopment Framework)** para simular el flujo de una investigación criminal. La solución demuestra cómo agentes inteligentes pueden colaborar de manera distribuida mediante el uso de **Páginas Amarillas (Directory Facilitator - DF)** y **mensajes ACL (Agent Communication Language)** para resolver un caso de investigación.
 
-🎯 Objetivos
-Implementar una arquitectura basada en Sistemas Multiagente.
-Utilizar el Directory Facilitator (DF) para el descubrimiento dinámico de servicios.
-Implementar comunicación entre agentes mediante mensajes ACL.
-Simular un proceso colaborativo de investigación criminal.
-Demostrar la interacción entre agentes especializados.
-🏗 Arquitectura del Sistema
+El proyecto fue desarrollado como parte del curso **Innovación Disruptiva** de la **Maestría en Ingeniería de Sistemas e Informática**.
+
+---
+
+# 🎯 Objetivos
+
+* Implementar una arquitectura basada en Sistemas Multiagente.
+* Utilizar el **Directory Facilitator (DF)** para el descubrimiento dinámico de servicios.
+* Implementar comunicación entre agentes mediante mensajes ACL.
+* Simular un proceso colaborativo de investigación criminal.
+* Demostrar la interacción entre agentes especializados.
+
+---
+
+# 🏗 Arquitectura del Sistema
+
+```
                     Escena del Crimen
                             │
                             ▼
@@ -27,85 +36,126 @@ Demostrar la interacción entre agentes especializados.
                             │
                             ▼
                          Fiscal
-🤖 Agentes del Sistema
-🔍 EscenaCrimen
+```
+
+---
+
+# 🤖 Agentes del Sistema
+
+## 🔍 EscenaCrimen
 
 Responsabilidades:
 
-Detectar evidencias.
-Buscar servicios utilizando el Directory Facilitator.
-Enviar evidencias a los laboratorios.
-Recibir los resultados del análisis.
-Enviar la información consolidada al Perfilador Criminal.
-🧬 LaboratorioADN
+* Detectar evidencias.
+* Buscar servicios utilizando el Directory Facilitator.
+* Enviar evidencias a los laboratorios.
+* Recibir los resultados del análisis.
+* Enviar la información consolidada al Perfilador Criminal.
+
+---
+
+## 🧬 LaboratorioADN
 
 Servicio registrado:
 
+```
 analisis-adn
+```
 
 Funciones:
 
-Analizar muestras biológicas.
-Procesar sangre y cabello.
-Generar resultados del análisis genético.
-🖐 LaboratorioHuellas
+* Analizar muestras biológicas.
+* Procesar sangre y cabello.
+* Generar resultados del análisis genético.
+
+---
+
+## 🖐 LaboratorioHuellas
 
 Servicio registrado:
 
+```
 analisis-huellas
+```
 
 Funciones:
 
-Analizar huellas dactilares.
-Determinar coincidencias con registros criminales.
-🕵 PerfiladorCriminal
+* Analizar huellas dactilares.
+* Determinar coincidencias con registros criminales.
+
+---
+
+## 🕵 PerfiladorCriminal
 
 Servicio registrado:
 
+```
 perfil-criminal
+```
 
 Funciones:
 
-Integrar la información proveniente de los laboratorios.
-Elaborar un perfil del sospechoso.
-Determinar el nivel de sospecha.
-⚖ Fiscal
+* Integrar la información proveniente de los laboratorios.
+* Elaborar un perfil del sospechoso.
+* Determinar el nivel de sospecha.
+
+---
+
+## ⚖ Fiscal
 
 Servicio registrado:
 
+```
 informe-fiscal
+```
 
 Funciones:
 
-Recibir el perfil criminal.
-Emitir el informe final del caso.
-Presentar la conclusión de la investigación.
-🔄 Flujo de Funcionamiento
-El agente EscenaCrimen detecta una o más evidencias.
-Consulta el Directory Facilitator (DF) para localizar los agentes que ofrecen los servicios requeridos.
-Envía las evidencias al laboratorio correspondiente.
-Los laboratorios realizan el análisis y responden mediante mensajes ACL.
-El Perfilador Criminal consolida toda la información recibida.
-El Fiscal genera el informe final de la investigación.
-💬 Comunicación entre Agentes
+* Recibir el perfil criminal.
+* Emitir el informe final del caso.
+* Presentar la conclusión de la investigación.
 
-La comunicación se realiza mediante mensajes ACL (Agent Communication Language) proporcionados por JADE.
+---
+
+# 🔄 Flujo de Funcionamiento
+
+1. El agente **EscenaCrimen** detecta una o más evidencias.
+2. Consulta el **Directory Facilitator (DF)** para localizar los agentes que ofrecen los servicios requeridos.
+3. Envía las evidencias al laboratorio correspondiente.
+4. Los laboratorios realizan el análisis y responden mediante mensajes ACL.
+5. El **Perfilador Criminal** consolida toda la información recibida.
+6. El **Fiscal** genera el informe final de la investigación.
+
+---
+
+# 💬 Comunicación entre Agentes
+
+La comunicación se realiza mediante mensajes **ACL (Agent Communication Language)** proporcionados por JADE.
 
 Cada agente puede:
 
-Buscar servicios en el DF.
-Enviar mensajes ACL.
-Recibir respuestas.
-Ejecutar comportamientos autónomos.
-Colaborar con otros agentes para resolver el caso.
-🛠 Tecnologías Utilizadas
-Java 11
-JADE 4.5
-Directory Facilitator (DF)
-ACL Messages
-Eclipse Adoptium JDK 11
-Visual Studio Code
-📂 Estructura del Proyecto
+* Buscar servicios en el DF.
+* Enviar mensajes ACL.
+* Recibir respuestas.
+* Ejecutar comportamientos autónomos.
+* Colaborar con otros agentes para resolver el caso.
+
+---
+
+# 🛠 Tecnologías Utilizadas
+
+* Java 11
+* JADE 4.5
+* Directory Facilitator (DF)
+* ACL Messages
+* Eclipse Adoptium JDK 11
+* Visual Studio Code
+
+---
+
+# 📂 Estructura del Proyecto
+
+```
 HomeWork/
 │
 ├── jade.jar
