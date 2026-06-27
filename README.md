@@ -2,9 +2,137 @@
 
 ## 📌 Descripción
 
-Este proyecto implementa un **Sistema Multiagente** utilizando la plataforma **JADE (Java Agent DEvelopment Framework)** para simular el flujo de una investigación criminal. La solución demuestra cómo agentes inteligentes pueden colaborar de manera distribuida mediante el uso de **Páginas Amarillas (Directory Facilitator - DF)** y **mensajes ACL (Agent Communication Language)** para resolver un caso de investigación.
+Este proyecto implementa un **Sistema Multiagente** utilizando la plataforma **JADE (Java Agent DEvelopment Framework)** para simular un proceso de investigación criminal. La solución demuestra cómo agentes inteligentes colaboran de forma distribuida mediante el uso de **Páginas Amarillas (Directory Facilitator - DF)** y **mensajes ACL (Agent Communication Language)** para resolver un caso de investigación.
 
 El proyecto fue desarrollado como parte del curso **Innovación Disruptiva** de la **Maestría en Ingeniería de Sistemas e Informática**.
+
+---
+
+# 🚀 Cómo ejecutar el proyecto
+
+## 📋 Requisitos
+
+Antes de ejecutar el proyecto asegúrate de contar con:
+
+* Java JDK 11 o superior
+* JADE 4.5 (`jade.jar`)
+* Visual Studio Code (o cualquier IDE compatible con Java)
+
+La estructura del proyecto debe mantenerse de la siguiente forma:
+
+```text
+HomeWork
+│
+├── jade.jar
+├── README.md
+├── .gitignore
+│
+└── InvestigacionCriminal
+    ├── EscenaCrimen.java
+    ├── LaboratorioADN.java
+    ├── LaboratorioHuellas.java
+    ├── PerfiladorCriminal.java
+    ├── Fiscal.java
+    ├── APDescription.txt
+    ├── MTPs-Main-Container.txt
+    └── out_2
+```
+
+---
+
+# ⚙ Paso 1. Compilar el proyecto
+
+Ubicarse dentro de la carpeta:
+
+```text
+InvestigacionCriminal
+```
+
+Ejecutar:
+
+```bash
+javac -d out_2 -cp ".;..\jade.jar" *.java
+```
+
+### Explicación del comando
+
+| Parámetro       | Descripción                                                   |
+| --------------- | ------------------------------------------------------------- |
+| `javac`         | Compilador de Java                                            |
+| `-d out_2`      | Guarda los archivos compilados (.class) en la carpeta `out_2` |
+| `-cp`           | Define el ClassPath                                           |
+| `.;..\jade.jar` | Incluye la biblioteca JADE ubicada un nivel arriba            |
+| `*.java`        | Compila todos los archivos Java del proyecto                  |
+
+---
+
+# ▶ Paso 2. Ejecutar el sistema
+
+Ejecutar el siguiente comando:
+
+```bash
+java -cp ".;..\jade.jar;out_2" jade.Boot -gui -agents "adn:LaboratorioADN;huellas:LaboratorioHuellas;perfil:PerfiladorCriminal;fiscal:Fiscal;escena:EscenaCrimen(sangre,huella)"
+```
+
+### Explicación del comando
+
+| Parámetro             | Descripción                                  |
+| --------------------- | -------------------------------------------- |
+| -----------           | -------------                                |
+| `java`                | Ejecuta la Máquina Virtual de Java           |
+| `-cp`                 | Define el ClassPath                          |
+| `.;..\jade.jar;out_2` | Incluye JADE y las clases compiladas         |
+| `jade.Boot`           | Inicia la plataforma JADE                    |
+| `-gui`                | Abre la interfaz gráfica (RMA)               |
+| `-agents`             | Crea automáticamente los agentes del sistema |
+
+---
+
+# 🧪 Casos de prueba
+
+## Caso 1 – Evidencias: sangre y huella
+
+```bash
+java -cp ".;..\jade.jar;out_2" jade.Boot -gui -agents "adn:LaboratorioADN;huellas:LaboratorioHuellas;perfil:PerfiladorCriminal;fiscal:Fiscal;escena:EscenaCrimen(sangre,huella)"
+```
+
+---
+
+## Caso 2 – Evidencia: sangre
+
+```bash
+java -cp ".;..\jade.jar;out_2" jade.Boot -gui -agents "adn:LaboratorioADN;huellas:LaboratorioHuellas;perfil:PerfiladorCriminal;fiscal:Fiscal;escena:EscenaCrimen(sangre)"
+```
+
+---
+
+## Caso 3 – Evidencia: huella
+
+```bash
+java -cp ".;..\jade.jar;out_2" jade.Boot -gui -agents "adn:LaboratorioADN;huellas:LaboratorioHuellas;perfil:PerfiladorCriminal;fiscal:Fiscal;escena:EscenaCrimen(huella)"
+```
+
+---
+
+## Caso 4 – Evidencia: cabello
+
+```bash
+java -cp ".;..\jade.jar;out_2" jade.Boot -gui -agents "adn:LaboratorioADN;huellas:LaboratorioHuellas;perfil:PerfiladorCriminal;fiscal:Fiscal;escena:EscenaCrimen(cabello)"
+```
+
+---
+
+# 📌 Resultado esperado
+
+Al ejecutar correctamente el sistema se observará:
+
+* Apertura de la interfaz gráfica **JADE RMA**.
+* Registro automático de los agentes en la plataforma.
+* Registro de servicios en el **Directory Facilitator (DF)**.
+* Descubrimiento dinámico de servicios mediante las **Páginas Amarillas**.
+* Comunicación entre agentes utilizando mensajes **ACL**.
+* Procesamiento colaborativo de las evidencias.
+* Generación del informe final por parte del agente **Fiscal**.
 
 ---
 
@@ -20,7 +148,7 @@ El proyecto fue desarrollado como parte del curso **Innovación Disruptiva** de 
 
 # 🏗 Arquitectura del Sistema
 
-```
+```text
                     Escena del Crimen
                             │
                             ▼
@@ -48,35 +176,27 @@ Responsabilidades:
 
 * Detectar evidencias.
 * Buscar servicios utilizando el Directory Facilitator.
-* Enviar evidencias a los laboratorios.
-* Recibir los resultados del análisis.
+* Enviar evidencias a los laboratorios especializados.
+* Recibir resultados del análisis.
 * Enviar la información consolidada al Perfilador Criminal.
 
 ---
 
 ## 🧬 LaboratorioADN
 
-Servicio registrado:
-
-```
-analisis-adn
-```
+**Servicio registrado:** `analisis-adn`
 
 Funciones:
 
 * Analizar muestras biológicas.
-* Procesar sangre y cabello.
+* Procesar evidencias de sangre y cabello.
 * Generar resultados del análisis genético.
 
 ---
 
 ## 🖐 LaboratorioHuellas
 
-Servicio registrado:
-
-```
-analisis-huellas
-```
+**Servicio registrado:** `analisis-huellas`
 
 Funciones:
 
@@ -87,15 +207,11 @@ Funciones:
 
 ## 🕵 PerfiladorCriminal
 
-Servicio registrado:
-
-```
-perfil-criminal
-```
+**Servicio registrado:** `perfil-criminal`
 
 Funciones:
 
-* Integrar la información proveniente de los laboratorios.
+* Integrar la información recibida de los laboratorios.
 * Elaborar un perfil del sospechoso.
 * Determinar el nivel de sospecha.
 
@@ -103,11 +219,7 @@ Funciones:
 
 ## ⚖ Fiscal
 
-Servicio registrado:
-
-```
-informe-fiscal
-```
+**Servicio registrado:** `informe-fiscal`
 
 Funciones:
 
@@ -120,25 +232,25 @@ Funciones:
 # 🔄 Flujo de Funcionamiento
 
 1. El agente **EscenaCrimen** detecta una o más evidencias.
-2. Consulta el **Directory Facilitator (DF)** para localizar los agentes que ofrecen los servicios requeridos.
+2. Consulta el **Directory Facilitator (DF)** para localizar los agentes especializados.
 3. Envía las evidencias al laboratorio correspondiente.
 4. Los laboratorios realizan el análisis y responden mediante mensajes ACL.
-5. El **Perfilador Criminal** consolida toda la información recibida.
-6. El **Fiscal** genera el informe final de la investigación.
+5. El **Perfilador Criminal** consolida los resultados.
+6. El **Fiscal** genera el informe final del caso.
 
 ---
 
 # 💬 Comunicación entre Agentes
 
-La comunicación se realiza mediante mensajes **ACL (Agent Communication Language)** proporcionados por JADE.
+Los agentes utilizan **ACL Messages** para intercambiar información y colaborar durante la investigación.
 
 Cada agente puede:
 
-* Buscar servicios en el DF.
+* Registrarse en el Directory Facilitator.
+* Descubrir servicios ofrecidos por otros agentes.
 * Enviar mensajes ACL.
 * Recibir respuestas.
-* Ejecutar comportamientos autónomos.
-* Colaborar con otros agentes para resolver el caso.
+* Ejecutar comportamientos autónomos y colaborativos.
 
 ---
 
@@ -148,150 +260,38 @@ Cada agente puede:
 * JADE 4.5
 * Directory Facilitator (DF)
 * ACL Messages
-* Eclipse Adoptium JDK 11
 * Visual Studio Code
+* Git
+* GitHub
 
 ---
 
-# 📂 Estructura del Proyecto
+# 📸 Evidencias
 
-```
-HomeWork/
-│
-├── jade.jar
-├── README.md
-├── .gitignore
-│
-└── InvestigacionCriminal/
-    ├── EscenaCrimen.java
-    ├── LaboratorioADN.java
-    ├── LaboratorioHuellas.java
-    ├── PerfiladorCriminal.java
-    ├── Fiscal.java
-    ├── APDescription.txt
-    ├── MTPs-Main-Container.txt
-    └── out_2/
+El funcionamiento del sistema fue validado mediante:
 
-# 🚀 Cómo ejecutar el proyecto
-
-## 📋 Requisitos
-
-Antes de ejecutar el proyecto asegúrate de contar con:
-
-* Java JDK 11 o superior
-* JADE 4.5 (`jade.jar`)
-* Visual Studio Code o cualquier IDE para Java
-
-La estructura del proyecto debe mantenerse de la siguiente forma:
-
-```text
-HomeWork
-│
-├── jade.jar
-│
-└── InvestigacionCriminal
-    ├── EscenaCrimen.java
-    ├── LaboratorioADN.java
-    ├── LaboratorioHuellas.java
-    ├── PerfiladorCriminal.java
-    ├── Fiscal.java
-    ├── APDescription.txt
-    ├── MTPs-Main-Container.txt
-    └── out_2
-```
+* Consola de ejecución de JADE.
+* JADE Remote Agent Management (RMA).
+* Registro de agentes en el Directory Facilitator.
+* Comunicación entre agentes mediante mensajes ACL.
+* Casos de prueba con diferentes evidencias.
 
 ---
 
-# ⚙ Paso 1. Compilar el proyecto
+# 👨‍💻 Autor
 
-Ubicarse dentro de la carpeta:
+**Fabricio Prado, Sevastian Salcedo y Marco Rivera**
 
-```text
-InvestigacionCriminal
-```
+Maestría en Ingeniería de Sistemas e Informática
 
-Ejecutar el siguiente comando:
+Curso: Innovación Disruptiva
 
-```bash
-javac -d out_2 -cp ".;..\jade.jar" *.java
-```
-
-### ¿Qué hace este comando?
-
-| Parámetro       | Descripción                                        |
-| --------------- | -------------------------------------------------- |
-| `javac`         | Compilador de Java                                 |
-| `-d out_2`      | Guarda los archivos `.class` en la carpeta `out_2` |
-| `-cp`           | Define el ClassPath                                |
-| `.;..\jade.jar` | Incluye la biblioteca JADE ubicada un nivel arriba |
-| `*.java`        | Compila todos los archivos Java del proyecto       |
+Universidad Nacional Mayor de San Marcos
 
 ---
 
-# ▶ Paso 2. Ejecutar el sistema
+# 📄 Licencia
 
-Una vez compilado correctamente, ejecutar:
+Este proyecto fue desarrollado con fines académicos y de investigación.
 
-```bash
-java -cp ".;..\jade.jar;out_2" jade.Boot -gui -agents "adn:LaboratorioADN;huellas:LaboratorioHuellas;perfil:PerfiladorCriminal;fiscal:Fiscal;escena:EscenaCrimen(sangre,huella)"
-```
-
-### ¿Qué hace este comando?
-
-| Parámetro             | Descripción                                  |
-| --------------------- | -------------------------------------------- |
-| `java`                | Ejecuta la Máquina Virtual de Java           |
-| `-cp`                 | Define el ClassPath                          |
-| `.;..\jade.jar;out_2` | Incluye JADE y las clases compiladas         |
-| `jade.Boot`           | Inicia la plataforma JADE                    |
-| `-gui`                | Abre la interfaz gráfica (RMA)               |
-| `-agents`             | Crea automáticamente los agentes del sistema |
-
----
-
-# 🧪 Casos de prueba
-
-## Caso 1: Análisis de sangre y huella
-
-```bash
-java -cp ".;..\jade.jar;out_2" jade.Boot -gui -agents "adn:LaboratorioADN;huellas:LaboratorioHuellas;perfil:PerfiladorCriminal;fiscal:Fiscal;escena:EscenaCrimen(sangre,huella)"
-```
-
----
-
-## Caso 2: Solo análisis de sangre
-
-```bash
-java -cp ".;..\jade.jar;out_2" jade.Boot -gui -agents "adn:LaboratorioADN;huellas:LaboratorioHuellas;perfil:PerfiladorCriminal;fiscal:Fiscal;escena:EscenaCrimen(sangre)"
-```
-
----
-
-## Caso 3: Solo análisis de huellas
-
-```bash
-java -cp ".;..\jade.jar;out_2" jade.Boot -gui -agents "adn:LaboratorioADN;huellas:LaboratorioHuellas;perfil:PerfiladorCriminal;fiscal:Fiscal;escena:EscenaCrimen(huella)"
-```
-
----
-
-## Caso 4: Solo análisis de cabello
-
-```bash
-java -cp ".;..\jade.jar;out_2" jade.Boot -gui -agents "adn:LaboratorioADN;huellas:LaboratorioHuellas;perfil:PerfiladorCriminal;fiscal:Fiscal;escena:EscenaCrimen(cabello)"
-```
-
----
-
-# 📌 Resultado esperado
-
-Al ejecutar correctamente el proyecto se observará:
-
-* Apertura de la interfaz gráfica **JADE RMA**.
-* Registro automático de los agentes en la plataforma.
-* Registro de servicios en el **Directory Facilitator (DF)**.
-* Descubrimiento de servicios mediante las **Páginas Amarillas**.
-* Comunicación entre agentes utilizando mensajes **ACL**.
-* Procesamiento colaborativo de la evidencia.
-* Generación del informe final por parte del agente **Fiscal**.
 
